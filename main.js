@@ -27,7 +27,6 @@ window.onload = () => {
 		container.innerHTML = 'Загрузка...';
 		
 		fetch(url).then(response => {
-			console.log(response);
 			return response.json();
 		}).then(value => {
 			renderPosters (value, container);
@@ -41,9 +40,11 @@ window.onload = () => {
 
 function renderPosters (response, container) {
 	container.innerHTML ='';
+	if(response.results.length)
 		response.results.forEach((movie)=>{
 			createPoster(container, movie);
 		});
+	else container.innerHTML = 'Простите, но ничего не найдено.';
 }
 
 function createPoster (container, movie) {
