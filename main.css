@@ -5,7 +5,7 @@
 }
 
 .container {
-	width: 70%;
+	width: 80%;
 	margin: 0 auto;
 }
 
@@ -36,4 +36,28 @@
 	border-radius: 5px;
 	height: 30px;
 	font-size: 20px;
+}
+
+.movies {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+.poster {
+	width: 50%;
+	padding: 20px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	text-align: center;
+}
+.poster h3{
+	padding: 10px;
 }
