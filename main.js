@@ -13,7 +13,7 @@ window.onload = () => {
 		event.preventDefault();
 		const searchText = document.querySelector('.search-text').value;
 		const container = document.querySelector('.movies');
-		let url = 'https://api.the3moviedb.org/3/search/multi?';
+		let url = 'https://api.themoviedb.org/3/search/multi?';
 		url += `api_key=${options.apiKey}`;
 		if(options.language)
 			url += `&language=${options.language}`;
@@ -32,6 +32,7 @@ window.onload = () => {
 		}).then(value => {
 			renderPosters (value, container);
 		}).catch(error => {
+			container.innerHTML = 'Упс, что-то пошло не так.';
 			console.error(error);
 		});
 	});
