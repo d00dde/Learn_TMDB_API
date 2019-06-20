@@ -25,17 +25,23 @@ window.onload = () => {
 		if(options.region)
 			url += `&region=${options.region}`;
 		container.innerHTML = 'Загрузка...';
-		
-		fetch(url).then(response => {
-			return response.json();
-		}).then(value => {
-			renderPosters (value, container);
-		}).catch(error => {
-			container.innerHTML = 'Упс, что-то пошло не так.';
-			console.error(error);
-		});
+
+		GETResponse (url, renderPosters, container);
 	});
 
+	//const urlTrends = 
+
+}
+
+function GETResponse (url, resolve, container) {
+	fetch(url).then(response => {
+		return response.json();
+	}).then(value => {
+		resolve(value, container);
+	}).catch(error => {
+		container.innerHTML = 'Упс, что-то пошло не так.';
+		console.error(error);
+	});
 }
 
 function renderPosters (response, container) {
@@ -48,6 +54,7 @@ function renderPosters (response, container) {
 }
 
 function createPoster (container, movie) {
+	if(movie.media_type === 'person') return;
 	const poster = document.createElement('div');
 	poster.classList.add('poster');
 	const img = document.createElement('img');
@@ -57,13 +64,16 @@ function createPoster (container, movie) {
 		img.setAttribute( 'src', 'img/no_image.png');
 	});
 	img.style.width = '300px';
+	img.style.cursor = 'pointer';
+	
+	img.addEventListener('click', () => {
+		console.dir(img);
+
+	});
 	poster.appendChild(img);
 	const title = document.createElement('h3');
 	title.innerText = movie.name || movie.title;
 	poster.appendChild(title);
-	const description = document.createElement('p');
-	description.innerText = movie.overview;
-	poster.appendChild(description);
 	container.appendChild(poster);
 
 }
