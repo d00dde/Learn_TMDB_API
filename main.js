@@ -13,7 +13,7 @@ window.onload = () => {
 		event.preventDefault();
 		const searchText = document.querySelector('.search-text').value;
 		const container = document.querySelector('.movies');
-		let url = 'https://api.themoviedb.org/3/search/multi?';
+		let url = 'https://api.the3moviedb.org/3/search/multi?';
 		url += `api_key=${options.apiKey}`;
 		if(options.language)
 			url += `&language=${options.language}`;
@@ -25,33 +25,17 @@ window.onload = () => {
 		if(options.region)
 			url += `&region=${options.region}`;
 		container.innerHTML = 'Загрузка...';
-		GETRequest(url).then(response => {
-			renderPosters (response, container);
+		
+		fetch(url).then(response => {
+			console.log(response);
+			return response.json();
+		}).then(value => {
+			renderPosters (value, container);
 		}).catch(error => {
 			console.error(error);
 		});
 	});
-}
 
-function GETRequest (url) {
-	const promise = new Promise ((resolved, rejected)=> {
-	const request = new XMLHttpRequest();
-	request.open('GET', url);
-	request.addEventListener('load',() => {
-		if(request.status == 200) {
-			const response = JSON.parse(request.responseText);
-			resolved(response);
-		}
-		else rejected(request.status);
-	});
-	request.addEventListener('error',() => {
-		rejected('Network error');
-	});
-	request.send();
-
-	});
-	console.log(promise);
-	return promise;
 }
 
 function renderPosters (response, container) {
@@ -67,7 +51,6 @@ function createPoster (container, movie) {
 	const img = document.createElement('img');
 	img.setAttribute('src', `https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`);
 	img.setAttribute('alt', movie.name || movie.title);
-	console.log(movie);
 	img.addEventListener('error', () => {
 		img.setAttribute( 'src', 'img/no_image.png');
 	});
