@@ -105,7 +105,6 @@ function renderSolo (movie, container, type) {
 	}
 	if(movie.homepage) {
 		const homepage = document.createElement('a');
-		console.log(movie);	
 		homepage.innerText = movie.original_title || movie.original_name;
 		homepage.setAttribute('href', movie.homepage);
 		solo.appendChild(homepage);
@@ -114,6 +113,11 @@ function renderSolo (movie, container, type) {
 	const urlVideos = `https://api.themoviedb.org/3/${type}/${movie.id}/videos?api_key=${options.apiKey}&language=${options.language}`
 	GETResponse (urlVideos, (value, container)=>{
 		const a = document.createElement('a');
+		console.log(value);
+		//a.setAttribute('href', `https://api.themoviedb.org/3/movie/${value.results[0].id}`);
+		a.innerText = value.name;			//TODO
+		solo.appendChild(a);
+		//a.setAttribute('href', movie.homepage);
 
 	}, container);
 	const urlRecomend = `https://api.themoviedb.org/3/${type}/${movie.id}/recommendations?api_key=${options.apiKey}&language=${options.language}`
