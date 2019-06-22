@@ -68,12 +68,16 @@
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	width: 50%;
+	width: 45%;
 	margin-top: 25px;
-
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-.movies .right {
+
+
+.movies .right{
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -86,24 +90,30 @@
 	-o-flex-direction: column;
 	flex-direction: column;
 	margin-top: 25px;
+	margin: 15px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .movies .right h2{
 	text-align: center;
 	font-size: 30px;
-	padding: 15px;
 }
+
 .movies .right p{
-	padding: 15px;
+	margin-top: 20px;
 }
 
 .movies .right h3{
-	padding: 15px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .movies .video {
-	padding: 15px;
+	padding: 25px;
 }
+
 
 
 

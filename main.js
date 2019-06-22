@@ -106,9 +106,8 @@ function renderSolo (movie, container, type) {
 		right.appendChild(budget);
 	}
 	if(movie.homepage) {
-		const homepage = document.createElement('a');
-		homepage.innerText = movie.original_title || movie.original_name;
-		homepage.setAttribute('href', movie.homepage);
+		const homepage = document.createElement('div');
+		homepage.innerHTML = `Домашняя страница: <a href="${movie.homepage}">${movie.original_title || movie.original_name}</a>`;
 		right.appendChild(homepage);
 	}
 	container.appendChild(solo);
@@ -127,7 +126,6 @@ function renderVideos (value, container) {
 	value.results.forEach (item =>{
 		const video = document.createElement('div');
 		video.classList.add('video');
-		console.log(item);
 		video.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${item.key}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
 		container.appendChild(video);
 	});
