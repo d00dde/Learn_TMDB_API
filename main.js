@@ -10,11 +10,11 @@ let options = {
 
 window.onload = () => {
 	const formSearch = document.querySelector ('#form-search');
-	const searchText = document.querySelector('.search-text').value;
+	
 	const container = document.querySelector('.movies');
 	formSearch.addEventListener ('submit', (event) => {
 		event.preventDefault();
-		
+		const searchText = document.querySelector('.search-text').value;
 		let url = 'https://api.themoviedb.org/3/search/multi?';
 		url += `api_key=${options.apiKey}`;
 		if(options.language)
@@ -89,40 +89,47 @@ function renderSolo (movie, container, type) {
 	const img = document.createElement('img');
 	img.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`);
 	solo.appendChild(img);
+	const right = document.createElement('div');
+	right.classList.add('right');
 	const title = document.createElement('h2');
 	title.innerText = movie.title || movie.name;
-	solo.appendChild(title);
+	right.appendChild(title);
 	const overview = document.createElement('p');
 	overview.innerText = movie.overview;
-	solo.appendChild(overview);
+	right.appendChild(overview);
 	const voteAverage = document.createElement('h3');
 	voteAverage.innerText = `Рейтинг: ${movie.vote_average}`;
-	solo.appendChild(voteAverage);
+	right.appendChild(voteAverage);
 	if(movie.budget){	
 		const budget = document.createElement('h3');
 		budget.innerText = `Бюджет: $${(' '+movie.budget).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')}`;
-		solo.appendChild(budget);
+		right.appendChild(budget);
 	}
 	if(movie.homepage) {
 		const homepage = document.createElement('a');
 		homepage.innerText = movie.original_title || movie.original_name;
 		homepage.setAttribute('href', movie.homepage);
-		solo.appendChild(homepage);
+		right.appendChild(homepage);
 	}
 	container.appendChild(solo);
-	const urlVideos = `https://api.themoviedb.org/3/${type}/${movie.id}/videos?api_key=${options.apiKey}&language=${options.language}`
-	GETResponse (urlVideos, (value, container)=>{
-		const a = document.createElement('a');
-		console.log(value);
-		//a.setAttribute('href', `https://api.themoviedb.org/3/movie/${value.results[0].id}`);
-		a.innerText = value.name;			//TODO
-		solo.appendChild(a);
-		//a.setAttribute('href', movie.homepage);
+	container.appendChild(right);
 
-	}, container);
+	const urlVideos = `https://api.themoviedb.org/3/${type}/${movie.id}/videos?api_key=${options.apiKey}&language=${options.language}`
+	GETResponse (urlVideos, renderVideos, container);
+
 	const urlRecomend = `https://api.themoviedb.org/3/${type}/${movie.id}/recommendations?api_key=${options.apiKey}&language=${options.language}`
 	GETResponse (urlRecomend, (value, container)=>{
-		console.log(value);	
+
 	}, container);
+}
+
+function renderVideos (value, container) {
+	value.results.forEach (item =>{
+		const video = document.createElement('div');
+		video.classList.add('video');
+		console.log(item);
+		video.innerHTML = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${item.key}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+		container.appendChild(video);
+	});
 }
 

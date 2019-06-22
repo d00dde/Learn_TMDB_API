@@ -61,3 +61,49 @@
 .poster h3{
 	padding: 10px;
 }
+	
+.movies .solo {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 50%;
+	margin-top: 25px;
+
+}
+
+.movies .right {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 50%;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	margin-top: 25px;
+}
+
+.movies .right h2{
+	text-align: center;
+	font-size: 30px;
+	padding: 15px;
+}
+.movies .right p{
+	padding: 15px;
+}
+
+.movies .right h3{
+	padding: 15px;
+}
+
+.movies .video {
+	padding: 15px;
+}
+
+
+
