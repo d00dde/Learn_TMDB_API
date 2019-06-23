@@ -15,6 +15,7 @@ window.onload = () => {
 	formSearch.addEventListener ('submit', (event) => {
 		event.preventDefault();
 		const searchText = document.querySelector('.search-text').value;
+		if(!searchText) return
 		let url = 'https://api.themoviedb.org/3/search/multi?';
 		url += `api_key=${options.apiKey}`;
 		if(options.language)
@@ -52,7 +53,8 @@ function renderPosters (response, container) {
 		response.results.forEach((movie)=>{
 			createPoster(container, movie);
 		});
-	else container.innerHTML = 'Простите, но ничего не найдено.';
+	else container.innerHTML = 'По вашему запросу ничего не найдено.';
+
 }
 
 function createPoster (container, movie) {
@@ -107,7 +109,7 @@ function renderSolo (movie, container, type) {
 	}
 	if(movie.homepage) {
 		const homepage = document.createElement('div');
-		homepage.innerHTML = `Домашняя страница: <a href="${movie.homepage}">${movie.original_title || movie.original_name}</a>`;
+		homepage.innerHTML = `Домашняя страница: <a href="${movie.homepage}" target="_blanc">${movie.original_title || movie.original_name}</a>`;
 		right.appendChild(homepage);
 	}
 	container.appendChild(solo);
